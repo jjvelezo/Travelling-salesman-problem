@@ -18,10 +18,10 @@ def read_distances(filename):
 
 def calculate_route_length(route, distances):
     length = sum(distances[route[i], route[i + 1]] for i in range(len(route) - 1))
-    length += distances[route[-1], route[0]]  # close the loop
+    length += distances[route[-1], route[0]]
     return length
 
-def simulated_annealing(distances, initial_temperature=10000, cooling_rate=0.99, iterations=900):
+def simulated_annealing(distances, initial_temperature=10000, cooling_rate=0.99, iterations=1100):
     n = len(distances)
     current_route = list(range(n))
     random.shuffle(current_route)
@@ -50,34 +50,12 @@ def simulated_annealing(distances, initial_temperature=10000, cooling_rate=0.99,
     
     return best_route, best_length
 
-def plot_route(coordinates, route, title="TSP Solution"):
-    plt.figure(figsize=(10, 6))
-    
-    for i in range(len(route) - 1):
-        plt.plot([coordinates[route[i]][0], coordinates[route[i + 1]][0]],
-                 [coordinates[route[i]][1], coordinates[route[i + 1]][1]], 'b-', alpha=0.7)
-    plt.plot([coordinates[route[-1]][0], coordinates[route[0]][0]],
-             [coordinates[route[-1]][1], coordinates[route[0]][1]], 'b-', alpha=0.7)
-    
-    plt.plot(coordinates[:, 0], coordinates[:, 1], 'ro', markersize=5)
-    
-    for i, (x, y) in enumerate(coordinates):
-        plt.text(x, y, str(i), fontsize=12, ha='right')
-    
-    plt.title(title)
-    plt.xlabel("X")
-    plt.ylabel("Y")
-    plt.grid(True)
-    plt.show()
 
-# Load coordinates and distances from files
-coordinates = read_coordinates("Coord3.txt")
-distances = read_distances("Dist3.txt")
 
-# Run the Simulated Annealing algorithm
+coordinates = read_coordinates("Coord1.txt")
+distances = read_distances("Dist1.txt")
+
+
 best_route, best_length = simulated_annealing(distances)
 print("Best route found with Simulated Annealing:", best_route)
 print("Length of the best route (Simulated Annealing):", best_length)
-
-# Call plot_route to visualize the solution of Simulated Annealing
-plot_route(coordinates, best_route, title="TSP Solution with Simulated Annealing")
