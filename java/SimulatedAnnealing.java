@@ -75,7 +75,6 @@ public class SimulatedAnnealing {
             }
             temperature *= coolingRate;
         }
-        System.out.println("Best Route Length: " + bestLength);
         return bestRoute;
     }
 
@@ -105,6 +104,7 @@ public class SimulatedAnnealing {
     public static void main(String[] args) {
         try {
             double[][] distances = readDistances("Dist1.txt");
+            double[][] coordinates = readCoordinates("coord1.txt"); // Cargar las coordenadas desde "coord3"
 
             long startTime = System.nanoTime();
 
@@ -114,11 +114,11 @@ public class SimulatedAnnealing {
 
             double elapsedTimeInSeconds = (endTime - startTime) / 1_000_000_000.0;
 
-            System.out.println("Best route found:");
-            for (int city : bestRoute) {
-                System.out.print(city + " ");
-            }
-            System.out.println("\nExecution time: " + elapsedTimeInSeconds + " seconds");
+            System.out.println("Best route found with Simulated Annealing: " + Arrays.toString(bestRoute)); // Imprimir la ruta
+            double bestLength = calculateRouteLength(bestRoute, distances); // Calcular la longitud de la mejor ruta
+            System.out.println("Length of the best route (Simulated Annealing): " + bestLength);
+
+            System.out.println("Execution time: " + elapsedTimeInSeconds + " seconds");
 
         } catch (IOException e) {
             System.err.println("Error reading files: " + e.getMessage());
