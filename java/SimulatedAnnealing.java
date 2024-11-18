@@ -104,7 +104,7 @@ public class SimulatedAnnealing {
     public static void main(String[] args) {
         try {
             double[][] distances = readDistances("Dist1.txt");
-            double[][] coordinates = readCoordinates("coord1.txt"); // Cargar las coordenadas desde "coord3"
+            double[][] coordinates = readCoordinates("coord1.txt");
 
             long startTime = System.nanoTime();
 
@@ -114,8 +114,8 @@ public class SimulatedAnnealing {
 
             double elapsedTimeInSeconds = (endTime - startTime) / 1_000_000_000.0;
 
-            System.out.println("Best route found with Simulated Annealing: " + Arrays.toString(bestRoute)); // Imprimir la ruta
-            double bestLength = calculateRouteLength(bestRoute, distances); // Calcular la longitud de la mejor ruta
+            System.out.println("Best route found with Simulated Annealing: " + Arrays.toString(bestRoute)); 
+            double bestLength = calculateRouteLength(bestRoute, distances); 
             System.out.println("Length of the best route (Simulated Annealing): " + bestLength);
 
             System.out.println("Execution time: " + elapsedTimeInSeconds + " seconds");
