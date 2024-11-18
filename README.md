@@ -78,6 +78,16 @@ The following pseudocode outlines the steps for the Simulated Annealing algorith
 
 ## Conclusion
 
+The *Simulated Annealing* algorithm has proven to be a valuable tool for tackling complex optimization problems such as the TSP due to its balance between simplicity, efficiency, and its ability to find high-quality solutions. Although it does not guarantee the optimal result, its design allows escaping local minima, achieving near-optimal solutions within reasonable computational times.
+
+Choosing Simulated Annealing over other methods, such as brute force or genetic algorithms, is justified by its lower computational cost and adaptability to the problem. This approach is particularly useful as the number of cities increases, where other exact techniques become impractical.
+
+In the implementation presented:  
+- **Results:** Routes were significantly optimized within a limited number of iterations.  
+- **Impact:** Its ease of implementation and ability to adjust parameters make it ideal for scenarios with constrained time and resources.  
+
+As future work, exploring its combination with other heuristic methods, such as particle swarm optimization, or parallelizing its execution to better leverage available hardware, could be considered. This would allow obtaining faster and more robust solutions, maximizing the algorithm's potential for real-world applications.
+
 
 
 ---
