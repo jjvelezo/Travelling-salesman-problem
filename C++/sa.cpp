@@ -5,11 +5,13 @@
 #include <algorithm>
 #include <random>
 #include <limits>
-#include <sstream> 
+#include <sstream>
+#include <chrono> // Para medir el tiempo
 
 using namespace std;
+using namespace chrono;
 
-
+// Leer las coordenadas desde un archivo
 vector<pair<double, double>> readCoordinates(const string& filename) {
     ifstream file(filename);
     vector<pair<double, double>> coordinates;
@@ -22,7 +24,7 @@ vector<pair<double, double>> readCoordinates(const string& filename) {
     return coordinates;
 }
 
-
+// Leer las distancias desde un archivo
 vector<vector<double>> readDistances(const string& filename) {
     ifstream file(filename);
     vector<vector<double>> distances;
@@ -41,7 +43,7 @@ vector<vector<double>> readDistances(const string& filename) {
     return distances;
 }
 
-
+// Calcular la longitud de una ruta
 double calculateRouteLength(const vector<int>& route, const vector<vector<double>>& distances) {
     double length = 0.0;
     for (size_t i = 0; i < route.size() - 1; ++i) {
@@ -51,11 +53,11 @@ double calculateRouteLength(const vector<int>& route, const vector<vector<double
     return length;
 }
 
-
+// Algoritmo de recocido simulado
 pair<vector<int>, double> simulatedAnnealing(const vector<vector<double>>& distances, 
                                              double initialTemperature = 10000.0, 
                                              double coolingRate = 0.99, 
-                                             int iterations = 1100) {
+                                             int iterations = 15000) {
     int n = distances.size();
     vector<int> currentRoute(n);
     iota(currentRoute.begin(), currentRoute.end(), 0); 
@@ -97,19 +99,31 @@ pair<vector<int>, double> simulatedAnnealing(const vector<vector<double>>& dista
 }
 
 int main() {
+    // Inicio del cronómetro
+    auto start = high_resolution_clock::now();
 
+    // Leer coordenadas y distancias
     auto coordinates = readCoordinates("Coord1.txt");
     auto distances = readDistances("Dist1.txt");
 
- 
+    // Ejecutar el algoritmo
     auto [bestRoute, bestLength] = simulatedAnnealing(distances);
 
- 
-    cout << "Best route found with Simulated Annealing: ";
-    for (int city : bestRoute) {
-        cout << city << " ";
+    // Fin del cronómetro
+    auto end = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(end - start);
+
+    // Mostrar los resultados
+    cout << "Best route found with Simulated Annealing: [";
+    for (size_t i = 0; i < bestRoute.size(); ++i) {
+        cout << bestRoute[i];
+        if (i < bestRoute.size() - 1) cout << ", ";
     }
-    cout << "\nLength of the best route: " << bestLength << endl;
+    cout << "]" << endl;
+    cout << "Length of the best route (Simulated Annealing): " << bestLength << endl;
+
+    // Mostrar tiempo de ejecución
+    cout << "Execution time: " << duration.count() << " ms" << endl;
 
     return 0;
 }
